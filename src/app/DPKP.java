@@ -52,16 +52,26 @@ public class DPKP {
 			}
 		}
 		
-		// return results
+		// output results
 		System.out.println("item \tprofit \tweight \ttake");
 		for (int n = 1; n <= this.numberOfObjects; n++) {
 			System.out.println(n + "\t" + gains[n] + "\t" + weights[n] + "\t" + take[n]);
 		}
 		
+		//set result variable
 		this.result = "item \tprofit \tweight \ttake\n";
 		for (int n = 1; n <= this.numberOfObjects; n++) {
 			this.result += n + "\t" + gains[n] + "\t" + weights[n] + "\t" + take[n] + "\n";
 		}
+		
+		this.result += "\n\n";
+		int totalGain = 0;
+		for (int n = 1; n <= this.numberOfObjects; n++) {
+			if (take[n]) {
+				totalGain += gains[n];
+			}
+		}
+		this.result += "Total Gain: " + totalGain;
 	}
 	
 	private int[] adjustItemsArray(int[] items) {

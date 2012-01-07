@@ -52,8 +52,10 @@ public class ItemsConfigurationDialog extends JDialog {
 		content.setLayout(new GridLayout(4, 1));
 		
 		content.add(new JLabel("Gains"));
+		this.gainsTextField.setText(this.controlPanel.getGui().getObjectsGainAsString());
 		content.add(this.gainsTextField);
 		content.add(new JLabel("Weights"));
+		this.weightsTextField.setText(this.controlPanel.getGui().getObjectsWeightsAsString());
 		content.add(this.weightsTextField);
 		panel.add(content, BorderLayout.CENTER);
 		return panel;

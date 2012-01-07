@@ -48,7 +48,7 @@ public class KnapsackConfigurationDialog extends JDialog {
 		right.setLayout(new GridLayout(2, 1));
 		right.add(new JLabel("Maximum Weight"));
 		
-		maxWeightTextField = new JTextField("5");
+		maxWeightTextField = new JTextField(String.valueOf(this.controlPanel.getGui().getMaximumWeight()));
 		right.add(maxWeightTextField);
 		
 		contentPanel.add(right);

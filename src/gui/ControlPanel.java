@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,12 +20,15 @@ public class ControlPanel extends JPanel {
 	}
 
 	private void init() {
+		this.knapsackConfigurationButton.setPreferredSize(new Dimension(200, 75));
 		this.knapsackConfigurationButton.addActionListener(new KnapsackConfigurationListener(this));
 		this.add(this.knapsackConfigurationButton);
 		
+		this.itemsConfigurationButton.setPreferredSize(new Dimension(200, 75));
 		this.itemsConfigurationButton.addActionListener(new ItemsConfigurationListener(this));
 		this.add(this.itemsConfigurationButton);
 		
+		this.runButton.setPreferredSize(new Dimension(200, 75));
 		this.runButton.addActionListener(new RunListener(this));
 		this.add(this.runButton);
 		
@@ -55,6 +59,10 @@ public class ControlPanel extends JPanel {
 		this.gui.run();
 	}
 	
+	public GUI getGui() {
+		return gui;
+	}
+
 	public class KnapsackConfigurationListener implements ActionListener {
 		private ControlPanel controlPanel;
 		

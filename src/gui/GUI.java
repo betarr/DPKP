@@ -65,4 +65,34 @@ public class GUI {
 	public void setObjectsWeights(int[] objectsWeights) {
 		this.objectsWeights = objectsWeights;
 	}
+
+	public int getMaximumWeight() {
+		return maximumWeight;
+	}
+
+	public int getNumberOfObjects() {
+		return numberOfObjects;
+	}
+
+	public String getObjectsGainAsString() {
+		String result = "";
+		for (int i = 0; i < this.objectsGain.length; i++) {
+			if (i != 0) {
+				result += ", ";
+			}
+			result += this.objectsGain[i];
+		}
+		return result;
+	}
+
+	public String getObjectsWeightsAsString() {
+		String result = "";
+		for (int i = 0; i < this.objectsWeights.length; i++) {
+			if (i != 0) {
+				result += ", ";
+			}
+			result += this.objectsWeights[i];
+		}
+		return result;
+	}
 }
