@@ -1,68 +1,68 @@
 
 public class DPKP {
-	private static final int MAX_WEIGHT = 100;
-	
+
 	private int maximumWeight;
 	private int numberOfObjects;
-	private int[] objectsGain;
-	private int[] objectsWeights;
+	private int[] itemsGain;
+	private int[] itemsWeights;
 
 	public DPKP(int maximumWeight, int numberOfObjects, int[] objectsGain,
 			int[] objectsWeights) {
 		this.maximumWeight = maximumWeight;
 		this.numberOfObjects = numberOfObjects;
-		this.objectsGain = objectsGain;
-		this.objectsWeights = objectsWeights;
+		this.itemsGain = objectsGain;
+		this.itemsWeights = objectsWeights;
 	}
 	
 	public void fillSack() {
-		int[] a = new int[DPKP.MAX_WEIGHT];
-		int[] lastAdded = new int[DPKP.MAX_WEIGHT];
+		int[] gains = this.adjustItemsArray(this.itemsGain);
+		int[] weights = this.adjustItemsArray(this.itemsWeights);
 		
-		for (int i = 0; i <= this.maximumWeight; i++) {
-			a[i] = 0;
-			lastAdded[i] = -1;
-		}
+		int[][] opt = new int[this.numberOfObjects+1][this.maximumWeight+1];
+		boolean[][] sol = new boolean[this.numberOfObjects+1][this.maximumWeight+1];
 		
-		//a[0] = 0;
-		for (int i = 1; i <= this.maximumWeight; i++) {
-			for (int j = 0; j < this.numberOfObjects; j++) {
-				if ((this.objectsGain[j] <= i) && (a[i] < a[i - this.objectsGain[j]] + this.objectsWeights[j])) {
-					a[i] = a[i - this.objectsGain[j]] + this.objectsGain[j];
-					lastAdded[i] = j;
+		for (int n = 1; n <= this.numberOfObjects; n++) {
+			for (int w = 1; w <= this.maximumWeight; w++) {
+				// don't take item n
+				int option1 = opt[n-1][w];
+				
+				// take item n
+				int option2 = Integer.MIN_VALUE;
+				if (weights[n] <= w) {
+					option2 = gains[n] + opt[n-1][w-weights[n]];
 				}
+				
+				//select better of two options
+				opt[n][w] = Math.max(option1, option2);
+				sol[n][w] = (option2 > option1);
 			}
 		}
 		
-		for (int i = 0; i <= this.maximumWeight; i++) {
-			if (lastAdded[i] != -1) {
-				System.out.format("Weight %d; Benefit: %d; To reach this weight I added object %d (%d$ %dKg) to weight %d.\n",
-						i,
-						a[i],
-						lastAdded[i]+1,
-						this.objectsWeights[lastAdded[i]],
-						this.objectsGain[lastAdded[i]],
-						i-this.objectsGain[lastAdded[i]]);
+		// determine which items to take
+		boolean[] take = new boolean[this.numberOfObjects+1];
+		for (int n = this.numberOfObjects, w = this.maximumWeight; n > 0; n--) {
+			if (sol[n][w]) {
+				take[n] = true;
+				w = w - weights[n];
 			} else {
-				System.out.format("Weight %d; Benefit: 0; Can't reach this exact weight.\n",
-						i);
+				take[n] = false;
 			}
 		}
 		
-		System.out.println("----------------");
-		
-		int aux = this.maximumWeight;
-		while ((aux > 0) && (lastAdded[aux] != -1)) {
-			System.out.format("Added object %d (%d$ %dKg). Space left: %d\n",
-					lastAdded[aux]+1,
-					this.objectsGain[lastAdded[aux]],
-					this.objectsWeights[lastAdded[aux]],
-					aux - this.objectsGain[lastAdded[aux]]);
-			aux -= this.objectsGain[lastAdded[aux]];
+		// print results
+		System.out.println("item \tprofit \tweight \ttake");
+		for (int n = 1; n <= this.numberOfObjects; n++) {
+			System.out.println(n + "\t" + gains[n] + "\t" + weights[n] + "\t" + take[n]);
 		}
-		
-		System.out.format("Total value added: %d$\n", a[this.maximumWeight]);
 	}
 	
+	private int[] adjustItemsArray(int[] items) {
+		int[] result = new int[items.length+1];
+		result[0] = 0;
+		for (int i = 1; i < result.length; i++) {
+			result[i] = items[i-1];
+		}
+		return result;
+	}
 	
 }
