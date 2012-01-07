@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.DisplayMode;
 
 import javax.swing.JFrame;
 
@@ -39,8 +38,8 @@ public class GUI {
 	
 	public void run() {
 		DPKP dpkp = new DPKP(this.maximumWeight, this.objectsGain.length, this.objectsGain, this.objectsWeights);
-		this.displayPanel.repaintData(dpkp.fillSack());
-		System.out.println("here");
+		dpkp.fillSack();
+		this.displayPanel.repaintData(dpkp.getResult());
 	}
 
 	public JFrame getFrame() {

@@ -6,6 +6,8 @@ public class DPKP {
 	private int numberOfObjects;
 	private int[] itemsGain;
 	private int[] itemsWeights;
+	
+	private String result = "";
 
 	public DPKP(int maximumWeight, int numberOfObjects, int[] objectsGain,
 			int[] objectsWeights) {
@@ -15,7 +17,7 @@ public class DPKP {
 		this.itemsWeights = objectsWeights;
 	}
 	
-	public String fillSack() {
+	public void fillSack() {
 		int[] gains = this.adjustItemsArray(this.itemsGain);
 		int[] weights = this.adjustItemsArray(this.itemsWeights);
 		
@@ -56,11 +58,10 @@ public class DPKP {
 			System.out.println(n + "\t" + gains[n] + "\t" + weights[n] + "\t" + take[n]);
 		}
 		
-		String result = "item \tprofit \tweight \ttake\n";
+		this.result = "item \tprofit \tweight \ttake\n";
 		for (int n = 1; n <= this.numberOfObjects; n++) {
-			result += n + "\t" + gains[n] + "\t" + weights[n] + "\t" + take[n] + "\n";
+			this.result += n + "\t" + gains[n] + "\t" + weights[n] + "\t" + take[n] + "\n";
 		}
-		return result;
 	}
 	
 	private int[] adjustItemsArray(int[] items) {
@@ -72,4 +73,7 @@ public class DPKP {
 		return result;
 	}
 	
+	public String getResult() {
+		return this.result;
+	}
 }
