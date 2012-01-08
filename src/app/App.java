@@ -15,6 +15,9 @@ public class App {
 //		
 //		DPKP dpkp = new DPKP(maximumWeight, numberOfObjects, objectsGain, objectsWeights);
 //		dpkp.fillSack();
+		
+//		DPKP dpkp = new DPKP(maximumWeight, numberOfObjects, objectsGain, objectsWeights);
+//		dpkp.fillSackBruteForce();
 	}
 
 }

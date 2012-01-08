@@ -39,7 +39,8 @@ public class GUI {
 	public void run() {
 		DPKP dpkp = new DPKP(this.maximumWeight, this.objectsGain.length, this.objectsGain, this.objectsWeights);
 		dpkp.fillSack();
-		this.displayPanel.repaintData(dpkp.getResult());
+		dpkp.fillSackBruteForce();
+		this.displayPanel.repaintData(dpkp.getResult()+dpkp.getResultBruteForce());
 	}
 
 	public JFrame getFrame() {
