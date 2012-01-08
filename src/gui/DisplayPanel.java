@@ -6,8 +6,6 @@ import java.awt.Insets;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.StyledDocument;
 
 public class DisplayPanel extends JPanel {
 
