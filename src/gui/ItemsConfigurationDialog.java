@@ -156,12 +156,12 @@ public class ItemsConfigurationDialog extends JDialog {
 	public boolean areGenerateValuesValid() {
 		String numberOfItemsString = this.numberOfItemsTextField.getText();
 		String maxGainString = this.maxGaintTextField.getText();
-		String maxWeightString = this.maxGaintTextField.getText();
+		String maxWeightString = this.maxWeightTextField.getText();
 		try {
-			Integer.parseInt(numberOfItemsString);
-			Integer.parseInt(maxGainString);
-			Integer.parseInt(maxWeightString);
-			return true;
+			int numberOfItems = Integer.parseInt(numberOfItemsString);
+			int maxGain = Integer.parseInt(maxGainString);
+			int maxWeight = Integer.parseInt(maxWeightString);
+			return (numberOfItems > 0) && (maxGain > 0) && (maxWeight > 0);
 		} catch (Exception e) {
 			return false;
 		}
@@ -170,19 +170,14 @@ public class ItemsConfigurationDialog extends JDialog {
 	public void generateInputs() {
 		int numberOfItems = Integer.parseInt(this.numberOfItemsTextField.getText());
 		int maxGain = Integer.parseInt(this.maxGaintTextField.getText());
-		int maxWeight = Integer.parseInt(this.maxGaintTextField.getText());
-		
-		String gainsString = "";
-		String weightsString = "";
+		int maxWeight = Integer.parseInt(this.maxWeightTextField.getText());
 		
 		Random r = new Random();
-		for (int i = 0; i < numberOfItems; i++) {
-			if (i != 0) {
-				gainsString += ", ";
-				weightsString += ", ";
-			}
-			gainsString += r.nextInt(maxGain)+1;
-			weightsString += r.nextInt(maxWeight)+1;
+		String gainsString = String.valueOf(r.nextInt(maxGain)+1);
+		String weightsString = String.valueOf(maxWeight);
+		for (int i = 1; i < numberOfItems; i++) {
+			gainsString += ", " + String.valueOf(r.nextInt(maxGain)+1);
+			weightsString += ", " + String.valueOf(r.nextInt(maxWeight)+1);
 		}
 		this.gainsTextField.setText(gainsString);
 		this.weightsTextField.setText(weightsString);
