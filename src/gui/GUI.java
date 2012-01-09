@@ -5,6 +5,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+import app.BruteForce;
 import app.DPKP;
 
 public class GUI {
@@ -39,8 +40,10 @@ public class GUI {
 	public void run() {
 		DPKP dpkp = new DPKP(this.maximumWeight, this.objectsGain.length, this.objectsGain, this.objectsWeights);
 		dpkp.fillSack();
-		dpkp.fillSackBruteForce();
-		this.displayPanel.repaintData(dpkp.getResult()+dpkp.getResultBruteForce());
+		
+		BruteForce bruteForce = new BruteForce(this.maximumWeight, this.objectsGain.length, this.objectsGain, this.objectsWeights);
+		bruteForce.fillSack();
+		this.displayPanel.repaintData(dpkp.getResult()+bruteForce.getResult());
 	}
 
 	public JFrame getFrame() {
